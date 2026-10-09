@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>财务人SKILL速查手册</title>
+<style>
+  :root {
+    --bg: #f5f1f7;
+    --card: #fffdfb;
+    --sidebar: #f0eaf4;
+    --text: #3e3447;
+    --text-sub: #756b7e;
+    --primary: #806b98;
+    --primary-dark: #5b496f;
+    --primary-soft: #eee7f3;
+    --coral: #b69bc4;
+    --coral-soft: #f4eef6;
+    --border: #e2d9e8;
+    --accent: #927ca6;
+    --shadow: 0 12px 30px rgba(77, 58, 88, .08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Aptos", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .layout { display: flex; min-height: 100vh; background: radial-gradient(circle at 85% 3%, rgba(197, 177, 207, .18), transparent 26rem); }
+
+  /* 侧边栏 */
+  .sidebar {
+    width: 272px;
+    background: var(--sidebar);
+    border-right: 1px solid rgba(220, 209, 228, .95);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    padding: 24px 14px 28px;
+    z-index: 10;
+    box-shadow: 6px 0 24px rgba(77, 58, 88, .05);
+  }
+  .brand {
+    position: relative;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    padding: 8px 12px 18px 28px;
+    letter-spacing: .2px;
+    line-height: 1.25;
+  }
+  .brand::before {
+    content: "";
+    position: absolute;
+    left: 10px; top: 10px;
+    width: 8px; height: 34px;
+    background: var(--coral);
+    border-radius: 5px;
+    transform: rotate(-7deg);
+  }
+  .brand small { display: block; font-size: 13px; color: var(--text-sub); font-weight: 500; margin-top: 5px; }
+  .sidebar nav a {
+    display: block;
+    padding: 8px 12px;
+    margin: 2px 0;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+    transition: background .18s ease, color .18s ease, transform .18s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar nav a:hover { background: var(--primary-soft); color: var(--primary-dark); transform: translateX(2px); }
+  .sidebar nav a.active { background: var(--primary-soft); color: var(--primary-dark); border-left-color: var(--coral); font-weight: 700; }
+  .sidebar .group-label {
+    font-size: 13px; color: var(--primary); text-transform: uppercase;
+    font-weight: 700; letter-spacing: 0; padding: 18px 12px 6px;
+  }
+
+  /* 主内容 */
+  .main { flex: 1; margin-left: 272px; padding: 44px 48px 90px; max-width: 1120px; }
+  .page-header { position: relative; margin-bottom: 22px; padding: 26px 30px 25px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+  .page-header::after { content: "43"; display: none; position: absolute; right: 26px; top: -10px; font-size: 116px; line-height: 1; font-weight: 900; color: rgba(21, 154, 117, .08); letter-spacing: -8px; pointer-events: none; }
+  .page-header h1 { position: relative; z-index: 1; width: calc(100% - 330px); font-family: Georgia, "Songti SC", serif; font-size: clamp(26px, 3vw, 36px); font-weight: 700; letter-spacing: -.7px; color: var(--primary-dark); }
+  .page-header p { position: relative; z-index: 1; width: calc(100% - 330px); max-width: 680px; color: var(--text-sub); margin-top: 8px; font-size: 14px; }
+  .creator-profile { position: absolute; z-index: 2; top: 18px; right: 20px; width: 310px; display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 11px; padding: 11px 12px; border: 1px solid var(--border); border-radius: 9px; background: rgba(255, 253, 251, .97); }
+  .creator-profile img { display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
+  .creator-copy { min-width: 0; }
+  .creator-name { display: block; color: var(--primary-dark); font-size: 14px; font-weight: 800; line-height: 1.35; overflow-wrap: anywhere; }
+  .creator-id { display: block; margin-top: 3px; color: var(--text-sub); font-size: 11px; line-height: 1.4; }
+  .creator-cta { display: block; margin-top: 5px; color: #655277; font-size: 10px; font-weight: 700; line-height: 1.4; }
+
+  .quick-start { margin: 0 0 28px; }
+  .quick-start h2 { font-size: 19px; color: var(--primary-dark); margin-bottom: 6px; }
+  .quick-start .intro { color: var(--text-sub); font-size: 13px; margin-bottom: 14px; }
+  .install-guide { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; color: var(--text-sub); font-size: 12px; }
+  .install-guide label { color: var(--text); font-weight: 700; }
+  .install-guide select { border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); padding: 6px 28px 6px 9px; font: inherit; }
+  .quick-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 16px; padding: 0 0 16px; border-bottom: 1px solid var(--border); list-style: none; }
+  .quick-steps li { border-left: 3px solid var(--accent); padding-left: 12px; }
+  .quick-steps b { display: block; color: var(--text); font-size: 13px; margin-bottom: 3px; }
+  .quick-steps span { color: var(--text-sub); font-size: 12px; }
+  .cost-note { padding: 10px 12px; background: #f4f6f0; border-left: 3px solid #829786; color: var(--text-sub); font-size: 12px; margin-bottom: 14px; }
+  .risk-notice { margin: 0 0 22px; padding: 15px 18px; background: #fff9ed; border: 1px solid #ecd6a8; border-left: 4px solid #c38327; border-radius: 7px; }
+  .risk-notice h2 { color: #83551d; font-size: 15px; margin-bottom: 6px; }
+  .risk-notice p { color: #725b3b; font-size: 12px; margin: 3px 0; }
+
+  /* 搜索框 */
+  .search-box {
+    margin-bottom: 22px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px 16px; box-shadow: 0 4px 14px rgba(77, 58, 88, .05);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .search-box input {
+    flex: 1; border: none; outline: none; font-size: 14px; color: var(--text);
+    background: transparent; padding: 6px 0;
+  }
+  .search-box .hint { font-size: 12px; color: var(--text-sub); white-space: nowrap; }
+
+  section.module { margin-bottom: 44px; scroll-margin-top: 20px; }
+  .module-head {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 24px 17px;
+    margin-bottom: 14px;
+    box-shadow: 0 5px 18px rgba(77, 58, 88, .05);
+    position: relative;
+    overflow: hidden;
+  }
+  .module-head::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--coral); }
+  .module:nth-of-type(2n) .module-head::before { background: var(--accent); }
+  .module-head .num {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    color: var(--primary-dark); background: var(--primary-soft);
+    padding: 3px 10px; border-radius: 6px; margin-bottom: 6px;
+    letter-spacing: .4px;
+  }
+  .module-head h2 { font-size: 20px; font-weight: 800; letter-spacing: -.2px; }
+  .module-head .lead { color: var(--text-sub); margin-top: 4px; font-size: 13.5px; }
+
+  /* 卡片 */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    position: relative;
+    box-shadow: 0 3px 12px rgba(77, 58, 88, .04);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(245px, .72fr);
+    gap: 14px;
+  }
+  .card:hover { transform: translateY(-2px); border-color: #cdbdd8; box-shadow: 0 12px 24px rgba(77, 58, 88, .10); }
+  .card-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .card-head h3 { font-size: 15.5px; font-weight: 800; color: var(--text); flex: 1; }
+  .card-head .skill-id {
+    font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px;
+    color: var(--accent); background: var(--primary-soft);
+    border: 1px solid #ded3e5; padding: 2px 8px; border-radius: 5px;
+    white-space: nowrap; margin-top: 2px; margin-right: 58px;
+  }
+  .verify-control { display: inline-flex; align-items: center; gap: 5px; min-height: 25px; padding: 2px 7px; border: 1px solid var(--border); border-radius: 5px; background: var(--card); color: var(--text-sub); font-size: 11px; white-space: nowrap; }
+  .verify-control:has(input:checked) { color: #17624c; background: #edf8f3; border-color: #9ccdbb; }
+  .verify-control input { margin: 0; accent-color: #238266; }
+  .card .row { font-size: 13.5px; color: var(--text-sub); margin: 4px 0; }
+  .card .row b { color: var(--text); font-weight: 700; }
+  .card .copy-btn {
+    display: inline-block; margin-top: 8px;
+    border: 1px solid var(--border); background: var(--card); color: var(--primary);
+    border-radius: 6px; padding: 3px 12px; font-size: 12px; cursor: pointer;
+    transition: .15s;
+  }
+  .card .copy-btn:hover { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-dark); }
+  .card .copy-btn.done { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .card-detail { min-width: 0; }
+  .card-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+  .card .copy-btn, .sample-copy-btn {
+    margin-top: 0; border: 1px solid var(--border); background: var(--card); color: var(--primary);
+    border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+  }
+  .card .copy-btn:hover, .sample-copy-btn:hover { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-dark); }
+  .card .copy-btn.done, .sample-copy-btn.done { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .skill-example { min-width: 0; align-self: stretch; padding: 11px 12px; background: #f8f5fa; border: 1px solid #e8e0ec; border-radius: 6px; }
+  .skill-example h4 { font-size: 12px; color: var(--primary-dark); margin-bottom: 6px; }
+  .skill-example p { color: var(--text-sub); font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
+  .sample-copy-btn { margin-top: 8px; }
+  .card-tools { position: absolute; top: 12px; right: 14px; }
+  .pin-btn, .pinned-jump {
+    border: 1px solid var(--border); background: var(--card); color: var(--text-sub);
+    border-radius: 6px; padding: 4px 9px; font-size: 12px; cursor: pointer;
+  }
+  .pin-btn:hover, .pin-btn[aria-pressed="true"], .pinned-jump:hover {
+    color: var(--primary-dark); border-color: var(--primary); background: var(--primary-soft);
+  }
+  .pinned-area { margin: 0 0 30px; scroll-margin-top: 20px; }
+  .pinned-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+  .pinned-head h2 { font-size: 18px; color: var(--primary-dark); }
+  .pinned-head p, .pinned-empty { color: var(--text-sub); font-size: 12px; }
+  .pinned-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pinned-list .card { margin: 0; }
+  .pinned-list .card { grid-template-columns: 1fr; }
+  .pinned-list .card-head h3 { padding-right: 0; }
+  .pinned-empty { grid-column: 1 / -1; padding: 14px 16px; border: 1px dashed var(--border); background: rgba(255,253,251,.75); }
+  .pinned-actions { display: flex; gap: 8px; margin-top: 8px; }
+  :focus-visible { outline: 3px solid rgba(128, 107, 152, .4); outline-offset: 3px; }
+
+  .footer { text-align: center; color: var(--text-sub); font-size: 12px; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .no-result { display: none; text-align: center; color: var(--text-sub); padding: 30px; font-size: 14px; }
+
+  @media (max-width: 820px) {
+    .layout { display: block; }
+    .sidebar { position: sticky; width: 100%; height: auto; max-height: 240px; padding: 12px 14px 14px; border-right: 0; border-bottom: 1px solid var(--border); }
+    .brand { padding: 4px 10px 10px 25px; }
+    .brand::before { top: 6px; left: 8px; height: 30px; }
+    .main { margin-left: 0; padding: 22px 16px 60px; }
+    .install-guide { align-items: flex-start; }
+    .pinned-list { grid-template-columns: 1fr; }
+    .pinned-head { display: block; }
+    .quick-steps { grid-template-columns: 1fr; gap: 10px; }
+  }
+  @media (max-width: 1150px) {
+    .page-header h1, .page-header p { width: auto; }
+    .creator-profile { position: relative; top: auto; right: auto; width: min(100%, 420px); margin-top: 16px; }
+  }
+  @media (max-width: 600px) {
+    .page-header { padding: 20px 18px; }
+    .page-header::after { right: 10px; font-size: 80px; }
+    .page-header h1 { font-size: 26px; }
+    .creator-profile { grid-template-columns: 56px minmax(0, 1fr); gap: 10px; padding: 10px; }
+    .creator-profile img { width: 56px; height: 56px; }
+    .card { padding: 14px 14px; }
+    .card-head { flex-wrap: wrap; }
+    .search-box .hint { display: none; }
+    .card { grid-template-columns: 1fr; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="brand">财务人SKILL速查手册<small>47 个财务技能 · 分类速查</small></div>
+    <nav id="nav">
+      <a href="#quickStart">快速上手</a>
+      <a href="#pinnedArea">我的置顶</a>
+      <a class="group-label" href="#g1">账务 · 票据 · 报销</a>
+      <a class="group-label" href="#g2">会计 · 报表 · 审计</a>
+      <a class="group-label" href="#g3">税务 · 合规</a>
+      <a class="group-label" href="#g4">金融数据查询</a>
+      <a class="group-label" href="#g5">投研 · 估值</a>
+      <a class="group-label" href="#g6">基金 · 量化 · 进阶</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>财务人 SKILL 速查手册</h1>
+      <p>47 个财务 AI 技能 · 6 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
+      <aside class="creator-profile" aria-label="抖音账号">
+        <img src="assets/douyin-avatar.png" alt="抖音头像：闭眼微笑的猫咪">
+        <div class="creator-copy">
+          <strong class="creator-name">AI哟AI哟~</strong>
+          <span class="creator-id">抖音号：51363196181</span>
+          <span class="creator-cta">持续发布适合财务人的提效工具，欢迎关注！</span>
+        </div>
+      </aside>
+    </div>
+
+    <aside class="risk-notice" aria-labelledby="riskTitle">
+      <h2 id="riskTitle">风险提示</h2>
+      <p>本手册中的技能说明、示例和生成结果仅供学习与工作参考，不构成会计、审计、税务、法律或投资建议；AI 可能遗漏资料、误读口径或生成不准确内容。</p>
+      <p>用于入账、申报、审计、合同决策或对外披露前，请由具备相应资质的专业人员复核，并以现行法规、监管要求和官方渠道为准。投资数据和分析不代表未来表现，也不构成买卖建议。</p>
+      <p>上传发票、银行流水、合同、工资或客户资料前先脱敏，并确认 AI 平台和外部数据服务的数据处理、授权、保留规则及可能费用；不要在提示词或公开仓库中粘贴密码、API Key 等凭证。</p>
+      <p>技能文件开源或可导入，不等于其依赖的数据、模型、API 或连接器免费。安装前核对来源、订阅、调用额度、数据授权和依赖费用；费用不清楚时不要填入密钥或启用服务。WorkBuddy / Codex 支持某种技能格式，也不代表每个技能及其脚本都已兼容或安全。</p>
+      <p>首次运行请用脱敏样例和只读任务测试，检查脚本将访问的文件、网络和工具权限。不要让技能未经人工确认就提交申报、过账、发送外部消息、下单或执行资金相关操作。</p>
+      <p>卡片中的“已验证”由读者自行勾选，仅表示个人已核验来源、权限和输出，不代表官方认证、专业审计或对结果准确性的保证。</p>
+    </aside>
+
+    <section class="quick-start" id="quickStart" aria-labelledby="quickStartTitle">
+      <h2 id="quickStartTitle">快速上手</h2>
+      <div class="install-guide">
+        <label for="installPlatform">安装到</label>
+        <select id="installPlatform" aria-label="选择安装平台">
+          <option value="codex">Codex</option>
+          <option value="workbuddy">WorkBuddy</option>
+        </select>
+        <span id="installPlatformHint">复制安装指令，粘贴到 Codex 对话框发送。</span>
+      </div>
+      <ol class="quick-steps">
+        <li><b>1. 找技能</b><span>按分类或搜索，查看卡片中的场景和用法。</span></li>
+        <li><b>2. 核对安装要求</b><span>让 Agent 检查来源、依赖、权限和费用；有疑问先暂停安装。</span></li>
+        <li><b>3. 安装启用</b><span>选择平台，复制卡片里的安装指令并发送给 Agent。WorkBuddy 需将技能包上传到技能页。</span></li>
+        <li><b>4. 提问执行</b><span>上传脱敏资料，复制并补全提问样例中的期间、口径和输出要求。</span></li>
+        <li><b>5. 复核结果</b><span>核对来源、计算和异常项；确认后再用于业务，可勾选“已验证”。</span></li>
+      </ol>
+    </section>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="搜索技能，如：发票、税务、估值、审计……">
+      <span class="hint" id="searchCount">47 个技能</span>
+    </div>
+
+    <div class="no-result" id="noResult">没有匹配的技能，换个关键词试试。</div>
+
+    <section class="pinned-area" id="pinnedArea" aria-label="我的置顶">
+      <div class="pinned-head"><h2>我的置顶</h2><p>置顶内容保存在当前浏览器，可拖动调整顺序。</p></div>
+      <div class="pinned-list" id="pinnedList"></div>
+    </section>
+
+    <!-- ===== 1 账务票据报销 ===== -->
+    <section class="module" id="g1">
+      <div class="module-head"><span class="num">分类 1 · 11 个</span><h2>账务 · 票据 · 报销</h2><p class="lead">发票整理、银行对账、月结清单、记账基础资料、电商对账和 Excel 自动化。</p></div>
+
+      <div class="card"><div class="card-head"><h3>发票整理报销</h3><span class="skill-id">invoice-organizer</span></div><div class="row"><b>用法</b>：发发票图片/PDF，自动提取字段、查重、拆分进项税，生成报销台账 Excel。</div><div class="row"><b>场景</b>：个人报销、进项税抵扣、财务台账。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>发票批量提取对账</h3><span class="skill-id">invoice-extractor</span></div><div class="row"><b>用法</b>：丢一个发票文件夹，批量提取增普/增专/铁路客票/全电发票，按金额配对发票与付款截图。</div><div class="row"><b>场景</b>：财务对账、报销核对、发票归档。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>票据智能识别</h3><span class="skill-id">invoice-recognition</span></div><div class="row"><b>用法</b>：上传发票/收据/行程单/银行回单图片，提取关键字段结构化输出。</div><div class="row"><b>场景</b>：报销单、票据信息提取、回单识别。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>报销单整理</h3><span class="skill-id">expense-reimbursement-assistant</span></div><div class="row"><b>用法</b>：上传火车票/机票/住宿/餐费/办公用品等票据，汇总成报销明细与报销单。</div><div class="row"><b>场景</b>：员工报销、报销单生成。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>电商多平台对账</h3><span class="skill-id">cn-ecommerce-recon</span></div><div class="row"><b>用法</b>：上传平台结算账单+实际到账流水+内部订单，三层逐项核对差异。</div><div class="row"><b>场景</b>：电商财务、代运营、店铺月末结账对账。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>票据 OCR + 记账凭证</h3><span class="skill-id">yqzl-ai-service</span></div><div class="row"><b>用法</b>：解析银行回单/对账单/发票，自动生成记账凭证并标注需复核项。</div><div class="row"><b>场景</b>：财务记账自动化、凭证生成、代账机构做账。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>Excel 报表自动化</h3><span class="skill-id">excel-auto-zh</span></div><div class="row"><b>用法</b>：用 openpyxl 生成专业格式报表、零依赖解析表格、批量合并多工作表。</div><div class="row"><b>场景</b>：月报、科目余额表批量生成。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财务数据看板设计</h3><span class="skill-id">dashboard-builder</span></div><div class="row"><b>用法</b>：说明业务场景，给出北极星指标、一级指标、维度与图表选型映射。</div><div class="row"><b>场景</b>：财务看板、经营驾驶舱、指标体系设计。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>企业记账资料初始化</h3><span class="skill-id">bookkeeping-setup</span></div><div class="row"><b>用法</b>：整理企业类型、会计期间、科目表、核算方法和审批规则，建立可复用的记账背景资料。</div><div class="row"><b>场景</b>：新建账套前梳理基础信息、规范 AI 后续处理口径。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>银行流水与账簿对账</h3><span class="skill-id">bank-reconciliation</span></div><div class="row"><b>用法</b>：根据本地银行流水和账簿明细匹配收付款，列出未达项、重复项和金额差异。</div><div class="row"><b>场景</b>：月末银行对账、往来款核对。使用本地导出文件，不需要连接网银或邮件服务。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>本地确定性财务对账</h3><span class="skill-id">fcs-reconcile</span></div><div class="row"><b>用法</b>：用本地脚本核对银行流水与收付款台账，生成差异分类、复核清单和 Excel 工作簿；不确定的匹配留给人工确认。</div><div class="row"><b>场景</b>：需要可重复运行、保留来源行与复核轨迹的对账任务。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <!-- ===== 2 会计报表审计 ===== -->
+    <section class="module" id="g2">
+      <div class="module-head"><span class="num">分类 2 · 9 个</span><h2>会计 · 报表 · 审计</h2><p class="lead">财报分析、报表审计、准则查询、阿米巴核算、预算编制、月结管理和 AI CFO。</p></div>
+
+      <div class="card"><div class="card-head"><h3>财务报表深度分析</h3><span class="skill-id">financial-statement-analysis</span></div><div class="row"><b>用法</b>：输入公司名，按张新民框架跑利润表四步法/资产负债表三步法/现金流量表四步法。</div><div class="row"><b>场景</b>：财报质量识别、企业体检。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财报智能解读</h3><span class="skill-id">financial-report-analysis</span></div><div class="row"><b>用法</b>：输入公司名/代码，建近 8 季序列做趋势诊断、异常扫描、三维度解读。</div><div class="row"><b>场景</b>：季报年报快速读懂一家公司。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>报表审计工作流</h3><span class="skill-id">financial-statement-audit</span></div><div class="row"><b>用法</b>：上传底稿模板与数据，做 Excel 分析、数据回填、自动审核与完成阶段。</div><div class="row"><b>场景</b>：注册会计师/审计人员做报表审计。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>企业会计准则查询</h3><span class="skill-id">enterprise-accounting-standards</span></div><div class="row"><b>用法</b>：问「存货跌价怎么计提」「长期股权投资初始计量」等，按准则条号引用条文作答。</div><div class="row"><b>场景</b>：会计处理依据查询、实务易错点核对。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>阿米巴单位时间核算</h3><span class="skill-id">amoeba-unit-time-accounting</span></div><div class="row"><b>用法</b>：为每个核算单元建单位时间核算表（附加值=收入-费用÷总时间）。</div><div class="row"><b>场景</b>：阿米巴经营核算、内部经营实绩呈现。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>数据资产入表自检</h3><span class="skill-id">data-asset-compliance-selfcheck</span></div><div class="row"><b>用法</b>：围绕资产确认/资本化/成本归集/披露等七维逐条判定合规性。</div><div class="row"><b>场景</b>：数据资产入表前合规自检、高估风险预警。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>AI CFO 财务助手</h3><span class="skill-id">finance-ops</span></div><div class="row"><b>用法</b>：上传经营数据，出财务简报、成本分析、场景建模。</div><div class="row"><b>场景</b>：月度经营分析、成本拆解、预算建模。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>预算编制</h3><span class="skill-id">budget-planning</span></div><div class="row"><b>用法</b>：说明预算目标，做预算规划、科目拆解、数据填列、汇总审查。</div><div class="row"><b>场景</b>：年度/项目/部门预算编制。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>月末结账清单</h3><span class="skill-id">monthly-close</span></div><div class="row"><b>用法</b>：根据企业提供的结账步骤和本期本地资料整理任务、责任人、截止时间与未完成事项。</div><div class="row"><b>场景</b>：月结排期、关账进度追踪、结账复盘。它提供流程清单，不替代账务判断或正式过账。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <!-- ===== 3 税务合规 ===== -->
+    <section class="module" id="g3">
+      <div class="module-head"><span class="num">分类 3 · 12 个</span><h2>税务 · 合规</h2><p class="lead">税收政策、税务筹划、税务审计、法税同审、高企加计扣除、跨境/外贸税务、薪酬个税。</p></div>
+
+      <div class="card"><div class="card-head"><h3>税收政策查询</h3><span class="skill-id">tax-policy-qa</span></div><div class="row"><b>用法</b>：问某税种/事项的最新政策，仅基于税务总局+财政部官网作答。</div><div class="row"><b>场景</b>：查税率、优惠、税前扣除口径。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>税务筹划</h3><span class="skill-id">tax-planning</span></div><div class="row"><b>用法</b>：输入业务场景，测算各合规节税策略的金额与风险边界。</div><div class="row"><b>场景</b>：合法节税测算、筹划方案评估。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>税务合规自查</h3><span class="skill-id">tax-compliance-check</span></div><div class="row"><b>用法</b>：按税务合规风险矩阵对企业税务处理做自查，识别风险点。</div><div class="row"><b>场景</b>：税务合规、税负自查。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财税风险分析</h3><span class="skill-id">fin-tax-risk-analysis</span></div><div class="row"><b>用法</b>：上传账务数据+申报表，相互比对识别财务与税务合规风险并分级。</div><div class="row"><b>场景</b>：稽查前自查、财税合规体检。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>税务审计</h3><span class="skill-id">tax-tax-audit</span></div><div class="row"><b>用法</b>：按审计准则 1142 号落地，做税务内控测试、涉税舞弊识别与披露。</div><div class="row"><b>场景</b>：财务报表审计中的税务维度、税务合规审计。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>法税同审</h3><span class="skill-id">tax-legal-tax-review</span></div><div class="row"><b>用法</b>：对并购交易文件做税务尽调、涉税条款法务财务税务一体化审查。</div><div class="row"><b>场景</b>：并购入场税务尽调、涉税法律文书。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>高企认定与研发加计扣除</h3><span class="skill-id">tax-high-tech-deduction</span></div><div class="row"><b>用法</b>：做高企八大指标、研发费用归集分摊、四口径报表与辅助账。</div><div class="row"><b>场景</b>：高企认定、研发费用加计扣除申报。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>跨境税务</h3><span class="skill-id">tax-crossborder</span></div><div class="row"><b>用法</b>：问非居民预提税、间接股权转让、CRS、境外所得抵免等。</div><div class="row"><b>场景</b>：跨境业务涉税、红筹/VIE 架构税务。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>外贸财税</h3><span class="skill-id">tax-foreign-trade</span></div><div class="row"><b>用法</b>：处理进口税收、贸易融资、出口退税对账、海关稽查应对。</div><div class="row"><b>场景</b>：外贸企业财税合规、出口退税。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>申报遗漏检查</h3><span class="skill-id">missed-filing-check</span></div><div class="row"><b>用法</b>：检查绑定企业是否存在应申报未申报、逾期申报或所属期遗漏。</div><div class="row"><b>场景</b>：申报期自查、避免逾期。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>薪酬个税社保</h3><span class="skill-id">hr-compensation-kit</span></div><div class="row"><b>用法</b>：算工资、社保公积金、福利费扣除、个税处理，含勾稽自检脚本。</div><div class="row"><b>场景</b>：薪酬计算、个税社保、福利费 14% 扣除。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>合同风险审查</h3><span class="skill-id">contract-risk-reviewer</span></div><div class="row"><b>用法</b>：上传合同，按红线条款+付款+违约做风险分级与修改建议。</div><div class="row"><b>场景</b>：采购/销售合同付款与违约条款审核。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <!-- ===== 4 金融数据查询 ===== -->
+    <section class="module" id="g4">
+      <div class="module-head"><span class="num">分类 4 · 2 个</span><h2>金融数据查询</h2><p class="lead">外部数据入口的来源、权限和费用请以对应项目说明为准。</p></div>
+
+      <div class="card"><div class="card-head"><h3>腾讯自选股数据</h3><span class="skill-id">westockdata</span></div><div class="row"><b>用法</b>：查 A/港/美股三大报表多期、分红、股东、资金流向、技术指标。</div><div class="row"><b>场景</b>：取数写分析、跨公司财务对比。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>大智慧客观数据</h3><span class="skill-id">dzh-data-query</span></div><div class="row"><b>用法</b>：查行情/财务/分红/股东/公告/龙虎榜，只返回事实不做判断。</div><div class="row"><b>场景</b>：拿客观数据自己分析。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <!-- ===== 5 投研估值 ===== -->
+    <section class="module" id="g5">
+      <div class="module-head"><span class="num">分类 5 · 8 个</span><h2>投研 · 估值</h2><p class="lead">个股深度分析、公司研究、看生意逻辑、估值框架——把投研的活儿交给 AI。</p></div>
+
+      <div class="card"><div class="card-head"><h3>个股深度分析</h3><span class="skill-id">stock-deep-analysis</span></div><div class="row"><b>用法</b>：先财务筛查，再拆生意/增长/壁垒/管理层，最后反向劝退列风险。</div><div class="row"><b>场景</b>：买股前基本面尽调。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>公司全维度研究</h3><span class="skill-id">company-deep-research</span></div><div class="row"><b>用法</b>：八模块框架（含财务+估值）出 HTML 深度报告，附估值四把尺子。</div><div class="row"><b>场景</b>：深度投研、估值锚定、写研报。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>看生意逻辑分析</h3><span class="skill-id">business-analysis-framework</span></div><div class="row"><b>用法</b>：用巴菲特/段永平框架判断「可投/不可投/能力圈外」。</div><div class="row"><b>场景</b>：定性判断公司质地。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>通达信个股分析</h3><span class="skill-id">tdx-stock-analysis</span></div><div class="row"><b>用法</b>：对单只 A 股做九维一页纸报告（近况/逻辑/催化/财务/估值）。</div><div class="row"><b>场景</b>：单只 A 股全面投资研究。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>深度投资分析</h3><span class="skill-id">investment-deep-analysis</span></div><div class="row"><b>用法</b>：10 章闭环（财报可信度/造假检测/ROE 拆解/护城河/checklist）。</div><div class="row"><b>场景</b>：上市公司系统化深度研究。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>美股综合分析</h3><span class="skill-id">us-stock-analysis</span></div><div class="row"><b>用法</b>：美股基本面、技术面、估值、对比报告。</div><div class="row"><b>场景</b>：美股研究、跨市场对比。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>估值水平分析</h3><span class="skill-id">dzh-technical-analysis</span></div><div class="row"><b>用法</b>：分析估值水平、历史分位与同行对比，判断高估/低估。</div><div class="row"><b>场景</b>：价值投资、仓位决策。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>企业估值全流程</h3><span class="skill-id">enterprise-valuation-framework</span></div><div class="row"><b>用法</b>：财务五维体检、ROIC 分解、自由现金流预测、WACC、DCF/APV 交叉验证。</div><div class="row"><b>场景</b>：企业估值、投融资定价。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <!-- ===== 6 基金量化进阶 ===== -->
+    <section class="module" id="g6">
+      <div class="module-head"><span class="num">分类 6 · 5 个</span><h2>基金 · 量化 · 进阶</h2><p class="lead">ETF 筛选、基金诊断、多因子量化、大盘研判、金融学习。</p></div>
+
+      <div class="card"><div class="card-head"><h3>ETF 筛选</h3><span class="skill-id">etf-filter</span></div><div class="row"><b>用法</b>：按分类、主题、跟踪指数、估值、规模、费率、流动性筛选场内 ETF。</div><div class="row"><b>场景</b>：选 ETF、构建组合。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>基金查询组合诊断</h3><span class="skill-id">yingmi-skill</span></div><div class="row"><b>用法</b>：基金查询、组合诊断、资产配置与财富规划。</div><div class="row"><b>场景</b>：基金持仓诊断、资产配置。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>多因子量化</h3><span class="skill-id">jf-lingxi-quant-multifactor-pro</span></div><div class="row"><b>用法</b>：用质量/成长/现金流/估值/动量等因子做候选筛选、因子诊断与回测。</div><div class="row"><b>场景</b>：量化选股、股票池构建、策略回测。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>大盘走势研判</h3><span class="skill-id">market-trend-assessment</span></div><div class="row"><b>用法</b>：用短线情绪流/周线阶段论/行为金融三框架研判 A 股大盘。</div><div class="row"><b>场景</b>：大盘研判、仓位参考。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>金融学习助手</h3><span class="skill-id">finance-assistant</span></div><div class="row"><b>用法</b>：问会计三表/货币时间价值/估值/宏观等概念，通俗讲解+学习路径。</div><div class="row"><b>场景</b>：补财务金融基础、体系化学习。</div><button class="copy-btn">复制</button></div>
+    </section>
+
+    <div class="footer">
+      财务人 SKILL 速查手册 · 6 大场景 · 47 个技能 · 核对日期：2026-10-09<br>
+      示例数据均为虚构内容；技能来源、版本与服务条款可能变化，请以原项目和宿主平台说明为准。
+    </div>
+
+  </main>
+</div>
+
+<script>
+  (function () {
+    var pinKey = 'finance-skill-manual-pins-v1';
+    var verifyKey = 'finance-skill-manual-verified-v1';
+    var cards = Array.prototype.slice.call(document.querySelectorAll('section.module .card'));
+    var sections = document.querySelectorAll('section.module');
+    var installPlatform = document.getElementById('installPlatform');
+    var installPlatformHint = document.getElementById('installPlatformHint');
+    var samplePrompts = {
+      'invoice-organizer': '请整理我上传的 9 月发票，提取发票号码、日期、购销方、金额和税额，查重并标出识别不清的项目，生成报销台账。',
+      'invoice-extractor': '请批量核对这个文件夹里的增值税发票和付款截图，按发票号码与金额匹配，列出未匹配、重复和金额不一致项。',
+      'invoice-recognition': '请识别这张银行回单，提取日期、付款方、收款方、金额、摘要和流水号；无法确认的字段标为待核对。',
+      'expense-reimbursement-assistant': '请把本月差旅票据整理成报销明细，按日期列出交通、住宿和餐费，并汇总各类金额及缺失凭证。',
+      'cn-ecommerce-recon': '请对比 9 月平台结算单、银行到账流水和内部订单，逐笔列出平台费用、未到账订单和差异金额。',
+      'yqzl-ai-service': '请读取上传的回单和发票，按日期、对方、摘要和金额拟制记账凭证，列出科目判断依据和需要会计复核的项目。',
+      'excel-auto-zh': '请合并这个工作簿内各部门的月报，统一表头与日期格式，保留原始工作表，并输出合并后的工作簿和处理说明。',
+      'dashboard-builder': '为连锁零售月度经营看板设计指标：收入、毛利、客单价、库存周转和门店坪效；说明定义、维度和适合的图表。',
+      'financial-statement-analysis': '请按利润表、资产负债表和现金流量表分析某公司近三年年报，先列数据来源，再指出趋势、勾稽关系和异常。',
+      'financial-report-analysis': '请比较某上市公司最近 8 个季度的收入、净利润和经营现金流，解释主要变化并标明数据期间和缺失项。',
+      'financial-statement-audit': '请按上传的审计底稿模板检查本期试算平衡表，核对勾稽关系，把差异回填到指定位置并保留复核痕迹。',
+      'enterprise-accounting-standards': '请说明存货跌价准备的确认与计量要求，引用现行会计准则条款，并区分准则原文和实务解释。',
+      'amoeba-unit-time-accounting': '请根据 A 事业部本月收入、费用和工时计算单位时间附加值，列出公式、口径及与上月的变化。',
+      'data-asset-compliance-selfcheck': '请根据这份数据资源清单，逐项检查控制权、经济利益、可辨认性、成本归集和披露证据，列出待补材料。',
+      'finance-ops': '请根据本月经营数据，拆解收入、毛利和费用变动，输出管理摘要、主要驱动因素及需要业务部门确认的问题。',
+      'budget-planning': '请为销售部门编制下一年度月度预算，按收入、人员、营销和差旅拆分，列明假设、公式及与本年实际的比较。',
+      'tax-policy-qa': '请查询截至当前有效的小规模纳税人增值税政策，引用税务总局或财政部原文并给出发布日期与适用条件。',
+      'tax-planning': '请比较设备采购采用直接购买与融资租赁的税务影响，列出假设、测算口径、合规边界及需税务顾问确认事项。',
+      'tax-compliance-check': '请按企业所得税年度汇算常见风险检查这份费用明细，指出凭证、业务真实性和税前扣除资料的缺口。',
+      'fin-tax-risk-analysis': '请对比总账收入、增值税申报收入和企业所得税申报收入，按差异金额排序并解释需要核实的项目。',
+      'tax-tax-audit': '请根据本期税务内控资料设计收入确认与纳税申报测试步骤，标明样本依据、异常证据和审计限制。',
+      'tax-legal-tax-review': '请审阅这份并购协议中的税务条款，按风险等级列出责任主体、触发条件、潜在影响和建议修改点。',
+      'tax-high-tech-deduction': '请检查本年度研发费用辅助账与项目清单，按费用类别核对归集口径，并列出高企申报和加计扣除的待补证据。',
+      'tax-crossborder': '请分析中国居民企业向境外关联方支付服务费的涉税事项，先列需要补充的交易事实，再区分规则依据与待确认问题。',
+      'tax-foreign-trade': '请核对这批出口订单的报关单、发票、收汇和退税数据，列出单证不一致、金额差异及需跟进事项。',
+      'missed-filing-check': '请按企业税种、申报周期和所属期整理本季度申报清单，标记已申报、待申报和无法判断的项目。',
+      'hr-compensation-kit': '请按员工所在地、税前工资、社保基数和专项附加扣除计算本月工资样例，并展示公式与政策假设。',
+      'contract-risk-reviewer': '请审阅这份采购合同，按付款、验收、违约、发票和数据保密条款列出风险等级及修改建议。',
+      'westockdata': '请查询 600519 最近四期营业收入、净利润和经营现金流，列明报告期、单位、来源和数据更新时间。',
+      'dzh-data-query': '请查询 600519 最近一期营业收入、净利润、分红和前十大股东，仅输出数据事实、期间和来源，不做判断。',
+      'stock-deep-analysis': '请分析某上市公司近三年财报与主营业务，按增长、盈利质量、现金流、竞争优势和主要风险整理证据。',
+      'company-deep-research': '请对某上市公司做全维度研究，覆盖业务、行业、财务、治理和估值；每项结论标出来源和待验证假设。',
+      'business-analysis-framework': '请用生意分析框架评估某公司的收入来源、客户黏性、竞争优势和关键风险，并区分事实与推断。',
+      'tdx-stock-analysis': '请对 600519 输出一页研究摘要，包含近期经营变化、财务表现、估值参考、潜在催化和反向风险。',
+      'investment-deep-analysis': '请系统分析某上市公司财报可信度、ROE 构成、现金流、资本配置和护城河，并列出反证清单。',
+      'us-stock-analysis': '请比较 AAPL 与 MSFT 最近年度收入、利润率、现金流和估值指标，注明币种、财年和数据来源。',
+      'dzh-technical-analysis': '请查询某股票当前估值及近五年历史分位，并与三家同行比较；说明指标口径和数据日期。',
+      'enterprise-valuation-framework': '请根据公司历史财务数据构建五年自由现金流估值，列明收入、利润率、WACC 假设和敏感性分析。',
+      'etf-filter': '请按跟踪指数、规模、费率和流动性筛选沪深 300 ETF，输出筛选条件、数据日期及候选产品对比。',
+      'yingmi-skill': '请根据我提供的基金代码和持仓比例做组合风险诊断，说明分析口径、数据日期和需要补充的信息。',
+      'jf-lingxi-quant-multifactor-pro': '请用质量、成长、现金流、估值和动量因子筛选候选股票，展示因子定义、权重和回测区间。',
+      'market-trend-assessment': '请基于最近一个交易日的指数和成交数据，分别按短线情绪、周线阶段和行为金融框架描述市场状态。',
+      'finance-assistant': '请用一个小企业例子解释利润表、资产负债表和现金流量表的勾稽关系，并给我三道练习题。',
+      'bookkeeping-setup': '请根据我提供的企业基本信息、会计期间、科目表和内部审批规则，整理一份记账背景资料。把缺失信息标为待补，不要代替我决定会计政策。',
+      'bank-reconciliation': '请对比我上传的银行流水和账簿明细，先确认字段映射，再列出已匹配、未达、重复和金额日期不一致记录，并保留双方来源行号。',
+      'monthly-close': '请根据我提供的月结制度和本月资料，生成结账任务清单，列出责任人、截止时间、前置依赖、完成状态和待补证据。不要执行过账或申报。',
+      'fcs-reconcile': '请用本地文件对比银行流水与收付款台账，按明确规则自动匹配；将多候选和无法确认的记录保留为待人工复核，并输出带来源行号的差异工作簿。'
+    };
+    var curatedSources = {
+      'bookkeeping-setup': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/bookkeeping-setup',
+      'bank-reconciliation': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/bank-reconciliation',
+      'monthly-close': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/monthly-close',
+      'fcs-reconcile': 'https://github.com/cxtx/finance-copilot-skills/tree/main/skills/fcs-reconcile'
+    };
+    function installRequest(name, skillId) {
+      var platform = installPlatform.value;
+      var source = curatedSources[skillId] ? '已知上游目录：' + curatedSources[skillId] + '。' : '请先搜索并提供可信上游仓库或官方来源，未找到可核验的 SKILL.md 时不要安装。';
+      var shared = source + '核对 SKILL.md、许可证、维护来源、所需工具/连接器、脚本权限、数据外发和依赖费用。只选择无需购买订阅、API Key 或付费数据接口的用法；来源或费用不清楚时暂停并说明。不得购买服务、提交密钥或擅自启用外部连接器。';
+      if (platform === 'workbuddy') {
+        return '请为 WorkBuddy 准备财务技能「' + name + '」（' + skillId + '）。' + shared + '若该技能是通用 Agent Skill 且依赖可满足，请按 WorkBuddy 可导入格式准备 ZIP，压缩包内包含技能目录和 SKILL.md，并告诉我文件保存位置、依赖及兼容性限制。不要声称已完成 WorkBuddy 导入；完成检查后指导我进入「专家 · 技能 · 连接器 → 技能」上传技能包。';
+      }
+      return '请为 Codex 安装财务技能「' + name + '」（' + skillId + '）。' + shared + '确认兼容后，将技能安装到 Codex 可发现的 skills 目录，并告诉我调用方式；若需要用户在界面确认，请停在确认步骤。';
+    }
+    function updateInstallPlatform() {
+      var workbuddy = installPlatform.value === 'workbuddy';
+      installPlatformHint.textContent = workbuddy
+        ? '复制后粘贴给 WorkBuddy Agent；核验后准备 ZIP，再到技能页上传导入。'
+        : '复制后粘贴到 Codex 对话框并发送；安装前核对来源和权限。';
+      document.querySelectorAll('[data-copy-type="install"]').forEach(function (button) {
+        button.textContent = workbuddy ? '复制 WorkBuddy 安装指令' : '复制 Codex 安装指令';
+      });
+    }
+    installPlatform.addEventListener('change', updateInstallPlatform);
+    var pinned = [];
+    var verifyState = {};
+    try { pinned = JSON.parse(localStorage.getItem(pinKey) || '[]'); } catch (e) {}
+    try { verifyState = JSON.parse(localStorage.getItem(verifyKey) || '{}'); } catch (e) {}
+
+    cards.forEach(function (card) {
+      var section = card.closest('section.module');
+      var index = Array.prototype.indexOf.call(section.querySelectorAll('.card'), card);
+      card.id = section.id + '-skill-' + index;
+      var tools = document.createElement('div');
+      tools.className = 'card-tools';
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'pin-btn';
+      button.textContent = '置顶';
+      button.setAttribute('aria-label', '置顶 ' + card.querySelector('h3').textContent.trim());
+      tools.appendChild(button);
+      card.appendChild(tools);
+      var skillId = card.querySelector('.skill-id').textContent.trim();
+      var verifyLabel = document.createElement('label');
+      verifyLabel.className = 'verify-control';
+      verifyLabel.title = '勾选表示你已自行试用并复核输出；状态保存在当前浏览器。';
+      var verifyInput = document.createElement('input');
+      verifyInput.type = 'checkbox';
+      verifyInput.className = 'verify-checkbox';
+      verifyInput.checked = !!verifyState[skillId];
+      verifyInput.setAttribute('aria-label', '标记 ' + card.querySelector('h3').textContent.trim() + ' 已验证');
+      var verifyText = document.createElement('span');
+      verifyText.textContent = '已验证';
+      verifyLabel.appendChild(verifyInput);
+      verifyLabel.appendChild(verifyText);
+      card.querySelector('.card-head').appendChild(verifyLabel);
+      var rows = Array.prototype.slice.call(card.querySelectorAll('.row'));
+      var scenarioRow = rows.filter(function (row) { return row.querySelector('b').textContent.trim() === '场景'; })[0];
+      var usageRow = rows.filter(function (row) { return row.querySelector('b').textContent.trim() === '用法'; })[0];
+      if (scenarioRow && usageRow) card.insertBefore(scenarioRow, usageRow);
+      var detail = document.createElement('div');
+      detail.className = 'card-detail';
+      Array.prototype.slice.call(card.children).forEach(function (child) {
+        if (!child.classList.contains('card-tools')) detail.appendChild(child);
+      });
+      card.insertBefore(detail, card.firstChild);
+
+      var actions = document.createElement('div');
+      actions.className = 'card-actions';
+      var installButton = detail.querySelector('.copy-btn');
+      installButton.textContent = '复制 Codex 安装指令';
+      installButton.dataset.copyType = 'install';
+      actions.appendChild(installButton);
+
+      var example = document.createElement('aside');
+      example.className = 'skill-example';
+      var exampleTitle = document.createElement('h4');
+      exampleTitle.textContent = '提问样例';
+      var exampleText = document.createElement('p');
+      exampleText.textContent = samplePrompts[skillId] || '请使用此技能完成一个具体任务，并说明输入要求、结果依据和待核对事项。';
+      var sampleButton = document.createElement('button');
+      sampleButton.type = 'button';
+      sampleButton.className = 'sample-copy-btn';
+      sampleButton.dataset.copyType = 'sample';
+      sampleButton.textContent = '复制样例提问';
+      example.appendChild(exampleTitle);
+      example.appendChild(exampleText);
+      example.appendChild(sampleButton);
+      card.insertBefore(example, card.querySelector('.card-tools'));
+      detail.appendChild(actions);
+      button.addEventListener('click', function () {
+        var id = card.id;
+        if (pinned.indexOf(id) >= 0) pinned = pinned.filter(function (item) { return item !== id; });
+        else pinned.unshift(id);
+        try { localStorage.setItem(pinKey, JSON.stringify(pinned)); } catch (e) {}
+        renderPinned();
+        updatePinButtons();
+      });
+    });
+
+    function updatePinButtons() {
+      cards.forEach(function (card) {
+        var button = card.querySelector('.pin-btn');
+        var isPinned = pinned.indexOf(card.id) >= 0;
+        button.textContent = isPinned ? '已置顶' : '置顶';
+        button.setAttribute('aria-pressed', isPinned ? 'true' : 'false');
+        button.setAttribute('aria-label', (isPinned ? '取消置顶 ' : '置顶 ') + card.querySelector('h3').textContent.trim());
+      });
+    }
+
+    function renderPinned() {
+      var list = document.getElementById('pinnedList');
+      pinned = pinned.filter(function (id) { return !!document.getElementById(id); });
+      list.innerHTML = '';
+      if (!pinned.length) {
+        var empty = document.createElement('div');
+        empty.className = 'pinned-empty';
+        empty.textContent = '还没有置顶技能。点击任意卡片右上角的“置顶”即可添加。';
+        list.appendChild(empty);
+        return;
+      }
+      pinned.forEach(function (id) {
+        var source = document.getElementById(id);
+        var clone = source.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.dataset.pinId = id;
+        clone.setAttribute('draggable', 'true');
+        var tools = clone.querySelector('.card-tools');
+        if (tools) tools.remove();
+        var clonedCheckbox = clone.querySelector('.verify-checkbox');
+        if (clonedCheckbox) clonedCheckbox.checked = !!verifyState[clone.querySelector('.skill-id').textContent.trim()];
+        var title = clone.querySelector('h3');
+        var actions = document.createElement('div');
+        actions.className = 'pinned-actions';
+        var jump = document.createElement('button');
+        jump.type = 'button';
+        jump.className = 'pinned-jump';
+        jump.textContent = '查看原位置';
+        jump.addEventListener('click', function () {
+          source.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        var unpin = document.createElement('button');
+        unpin.type = 'button';
+        unpin.className = 'pinned-jump';
+        unpin.textContent = '取消置顶';
+        unpin.addEventListener('click', function () {
+          pinned = pinned.filter(function (item) { return item !== id; });
+          try { localStorage.setItem(pinKey, JSON.stringify(pinned)); } catch (e) {}
+          renderPinned();
+          updatePinButtons();
+        });
+        actions.appendChild(jump);
+        actions.appendChild(unpin);
+        title.insertAdjacentElement('afterend', actions);
+        clone.addEventListener('dragstart', function (event) {
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/plain', id);
+          clone.classList.add('dragging');
+        });
+        clone.addEventListener('dragover', function (event) { event.preventDefault(); });
+        clone.addEventListener('drop', function (event) {
+          event.preventDefault();
+          var from = event.dataTransfer.getData('text/plain');
+          var fromIndex = pinned.indexOf(from);
+          var toIndex = pinned.indexOf(id);
+          if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) return;
+          pinned.splice(fromIndex, 1);
+          pinned.splice(toIndex, 0, from);
+          try { localStorage.setItem(pinKey, JSON.stringify(pinned)); } catch (e) {}
+          renderPinned();
+        });
+        clone.addEventListener('dragend', function () { clone.classList.remove('dragging'); });
+        list.appendChild(clone);
+      });
+    }
+
+    renderPinned();
+    updatePinButtons();
+
+    document.addEventListener('change', function (event) {
+      if (!event.target.matches('.verify-checkbox')) return;
+      var card = event.target.closest('.card');
+      var skillId = card.querySelector('.skill-id').textContent.trim();
+      verifyState[skillId] = event.target.checked;
+      try { localStorage.setItem(verifyKey, JSON.stringify(verifyState)); } catch (e) {}
+      document.querySelectorAll('.card .verify-checkbox').forEach(function (input) {
+        var owner = input.closest('.card');
+        var id = owner.querySelector('.skill-id').textContent.trim();
+        input.checked = !!verifyState[id];
+      });
+    });
+
+    // Copy works for both original cards and pinned copies.
+    document.addEventListener('click', function (event) {
+      var btn = event.target.closest('[data-copy-type]');
+      if (!btn) return;
+      var card = btn.closest('.card');
+      var name = card.querySelector('h3').textContent.trim();
+      var id = card.querySelector('.skill-id').textContent.trim();
+      var type = btn.dataset.copyType;
+      var text = type === 'sample'
+        ? (samplePrompts[id] || '请使用“' + name + '”完成一项示例任务，先说明所需材料、结果格式和需要人工复核的内容。')
+        : installRequest(name, id);
+      function ok() {
+        btn.textContent = type === 'sample' ? '样例已复制' : '安装请求已复制';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = type === 'sample' ? '复制样例提问' : (installPlatform.value === 'workbuddy' ? '复制 WorkBuddy 安装指令' : '复制 Codex 安装指令');
+          btn.classList.remove('done');
+        }, 1600);
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); ok();
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok).catch(fallback);
+      else fallback();
+    });
+
+    updateInstallPlatform();
+
+    // 搜索过滤
+    var input = document.getElementById('searchInput');
+    var count = document.getElementById('searchCount');
+    var noResult = document.getElementById('noResult');
+    input.addEventListener('input', function () {
+      var kw = input.value.trim().toLowerCase();
+      var matched = 0;
+      cards.forEach(function (card) {
+        var text = Array.prototype.slice.call(card.querySelectorAll('h3, .skill-id, .row, .skill-example p'))
+          .map(function (part) { return part.textContent; }).join(' ').toLowerCase();
+        var show = !kw || text.indexOf(kw) >= 0;
+        card.style.display = show ? '' : 'none';
+        if (show) matched++;
+      });
+      sections.forEach(function (sec) {
+        var any = Array.prototype.slice.call(sec.querySelectorAll('.card')).some(function (c) { return c.style.display !== 'none'; });
+        sec.style.display = any ? '' : 'none';
+      });
+      count.textContent = matched + ' 个技能';
+      noResult.style.display = matched === 0 ? 'block' : 'none';
+    });
+
+    // 侧边栏高亮
+    var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function onScroll() {
+      var pos = window.scrollY + 100;
+      var current = targets[0];
+      targets.forEach(function (sec) { if (sec && sec.offsetTop <= pos) current = sec; });
+      links.forEach(function (a) {
+        a.classList.remove('active');
+        if (current && a.getAttribute('href') === '#' + current.id) a.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  })();
+</script>
+</body>
+</html>
