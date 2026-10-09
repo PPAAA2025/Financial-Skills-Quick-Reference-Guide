@@ -103,9 +103,10 @@
   .install-guide { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; color: var(--text-sub); font-size: 12px; }
   .install-guide label { color: var(--text); font-weight: 700; }
   .install-guide select { border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); padding: 6px 28px 6px 9px; font: inherit; }
-  .quick-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0 0 16px; padding: 0 0 16px; border-bottom: 1px solid var(--border); list-style: none; }
-  .quick-steps li { border-left: 3px solid var(--accent); padding-left: 12px; }
-  .quick-steps b { display: block; color: var(--text); font-size: 13px; margin-bottom: 3px; }
+  .quick-steps { display: grid; grid-template-columns: 1fr; gap: 0; margin: 0 0 16px; padding: 0 0 16px; border-bottom: 1px solid var(--border); list-style: none; }
+  .quick-steps li { display: grid; grid-template-columns: minmax(120px, 160px) minmax(0, 1fr); align-items: start; gap: 12px; border-left: 3px solid var(--accent); border-bottom: 1px solid var(--border); padding: 9px 12px; }
+  .quick-steps li:last-child { border-bottom: 0; }
+  .quick-steps b { display: block; color: var(--text); font-size: 13px; }
   .quick-steps span { color: var(--text-sub); font-size: 12px; }
   .cost-note { padding: 10px 12px; background: #f4f6f0; border-left: 3px solid #829786; color: var(--text-sub); font-size: 12px; margin-bottom: 14px; }
   .risk-notice { margin: 0 0 22px; padding: 15px 18px; background: #fff9ed; border: 1px solid #ecd6a8; border-left: 4px solid #c38327; border-radius: 7px; }
@@ -227,7 +228,7 @@
     .install-guide { align-items: flex-start; }
     .pinned-list { grid-template-columns: 1fr; }
     .pinned-head { display: block; }
-    .quick-steps { grid-template-columns: 1fr; gap: 10px; }
+    .quick-steps li { grid-template-columns: minmax(104px, 120px) minmax(0, 1fr); gap: 8px; padding: 9px 10px; }
   }
   @media (max-width: 1150px) {
     .page-header h1, .page-header p { width: auto; }
