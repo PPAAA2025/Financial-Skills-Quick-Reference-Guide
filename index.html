@@ -251,7 +251,7 @@
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="brand">财务人SKILL速查手册<small>49 个财务技能 · 分类速查</small></div>
+    <div class="brand">财务人SKILL速查手册<small>59 个财务技能 · 分类速查</small></div>
     <nav id="nav">
       <a href="#quickStart">快速上手</a>
       <a href="#pinnedArea">我的置顶</a>
@@ -269,7 +269,7 @@
 
     <div class="page-header">
       <h1>财务人 SKILL 速查手册</h1>
-      <p>49 个财务 AI 技能 · 7 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
+      <p>59 个财务 AI 技能 · 7 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
       <aside class="creator-profile" aria-label="抖音账号">
         <img src="assets/douyin-avatar.png" alt="抖音头像：闭眼微笑的猫咪">
         <div class="creator-copy">
@@ -311,7 +311,7 @@
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="搜索技能，如：发票、税务、估值、审计……">
-      <span class="hint" id="searchCount">49 个技能</span>
+      <span class="hint" id="searchCount">59 个技能</span>
     </div>
 
     <div class="no-result" id="noResult">没有匹配的技能，换个关键词试试。</div>
@@ -323,7 +323,7 @@
 
     <!-- ===== 1 账务票据报销 ===== -->
     <section class="module" id="g1">
-      <div class="module-head"><span class="num">分类 1 · 11 个</span><h2>账务 · 票据 · 报销</h2><p class="lead">发票整理、银行对账、月结清单、记账基础资料、电商对账和 Excel 自动化。</p></div>
+      <div class="module-head"><span class="num">分类 1 · 13 个</span><h2>账务 · 票据 · 报销</h2><p class="lead">发票整理、银行对账、往来款跟进、付款安排和日常账务协作。</p></div>
 
       <div class="card"><div class="card-head"><h3>发票整理报销</h3><span class="skill-id">invoice-organizer</span></div><div class="row"><b>用法</b>：发发票图片/PDF，自动提取字段、查重、拆分进项税，生成报销台账 Excel。</div><div class="row"><b>场景</b>：个人报销、进项税抵扣、财务台账。</div><button class="copy-btn">复制</button></div>
 
@@ -346,11 +346,15 @@
       <div class="card"><div class="card-head"><h3>银行流水与账簿对账</h3><span class="skill-id">bank-reconciliation</span></div><div class="row"><b>用法</b>：根据本地银行流水和账簿明细匹配收付款，列出未达项、重复项和金额差异。</div><div class="row"><b>场景</b>：月末银行对账、往来款核对。使用本地导出文件，不需要连接网银或邮件服务。</div><button class="copy-btn">复制</button></div>
 
       <div class="card"><div class="card-head"><h3>本地确定性财务对账</h3><span class="skill-id">fcs-reconcile</span></div><div class="row"><b>用法</b>：用本地脚本核对银行流水与收付款台账，生成差异分类、复核清单和 Excel 工作簿；不确定的匹配留给人工确认。</div><div class="row"><b>场景</b>：需要可重复运行、保留来源行与复核轨迹的对账任务。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>应收账款与账龄分析</h3><span class="skill-id">accounts-receivable-aging</span></div><div class="row"><b>用法</b>：根据应收明细、开票和回款记录匹配核销，按客户和账龄区间汇总余额，标出逾期、争议和缺少回款计划的项目。</div><div class="row"><b>场景</b>：月末应收盘点、催收优先级、客户回款风险跟踪。只处理本地导出表格，不连接网银或客户系统。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>应付账款与付款排程</h3><span class="skill-id">accounts-payable-schedule</span></div><div class="row"><b>用法</b>：匹配供应商对账单、发票、合同账期和付款记录，整理到期日、建议付款批次、重复付款疑点及待审批项目。</div><div class="row"><b>场景</b>：周/月付款计划、应付账龄检查、资金安排。输出待审批清单，不执行付款或网银操作。</div><button class="copy-btn">复制</button></div>
     </section>
 
     <!-- ===== 2 会计报表审计 ===== -->
     <section class="module" id="g2">
-      <div class="module-head"><span class="num">分类 2 · 9 个</span><h2>会计 · 报表 · 审计</h2><p class="lead">财报分析、报表审计、准则查询、阿米巴核算、预算编制、月结管理和 AI CFO。</p></div>
+      <div class="module-head"><span class="num">分类 2 · 15 个</span><h2>会计 · 报表 · 审计</h2><p class="lead">财报分析、资金预测、预算差异、成本毛利、资产存货和审计资料管理。</p></div>
 
       <div class="card"><div class="card-head"><h3>财务报表深度分析</h3><span class="skill-id">financial-statement-analysis</span></div><div class="row"><b>用法</b>：输入公司名，按张新民框架跑利润表四步法/资产负债表三步法/现金流量表四步法。</div><div class="row"><b>场景</b>：财报质量识别、企业体检。</div><button class="copy-btn">复制</button></div>
 
@@ -369,6 +373,18 @@
       <div class="card"><div class="card-head"><h3>预算编制</h3><span class="skill-id">budget-planning</span></div><div class="row"><b>用法</b>：说明预算目标，做预算规划、科目拆解、数据填列、汇总审查。</div><div class="row"><b>场景</b>：年度/项目/部门预算编制。</div><button class="copy-btn">复制</button></div>
 
       <div class="card"><div class="card-head"><h3>月末结账清单</h3><span class="skill-id">monthly-close</span></div><div class="row"><b>用法</b>：根据企业提供的结账步骤和本期本地资料整理任务、责任人、截止时间与未完成事项。</div><div class="row"><b>场景</b>：月结排期、关账进度追踪、结账复盘。它提供流程清单，不替代账务判断或正式过账。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>资金计划与现金流预测</h3><span class="skill-id">cash-flow-forecast</span></div><div class="row"><b>用法</b>：汇总期初可用资金、应收预计回款、应付计划、工资税费和其他收支，按周/月滚动预测余额，展示基准与压力情景及假设。</div><div class="row"><b>场景</b>：短期资金缺口预警、付款节奏安排、滚动现金预测。所有预测应能追溯到用户输入的本地数据。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>预算执行与差异分析</h3><span class="skill-id">budget-variance-analysis</span></div><div class="row"><b>用法</b>：对齐预算、实际和上期数据的期间、科目及部门口径，计算金额/比例差异，按重要性排序并把原因标为有证据、待业务确认或假设。</div><div class="row"><b>场景</b>：月度/季度预算复盘、部门经营分析。避免将差异相关性直接当作原因或责任结论。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>产品与项目成本毛利分析</h3><span class="skill-id">cost-margin-analysis</span></div><div class="row"><b>用法</b>：按企业给定的成本归集与分摊口径，汇总收入、直接成本、分摊成本和毛利，比较产品/项目/客户/期间并标出负毛利和口径缺口。</div><div class="row"><b>场景</b>：产品盈利复盘、项目结项、客户贡献分析。不得擅自更改成本分摊政策。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>固定资产台账与折旧核对</h3><span class="skill-id">fixed-asset-register</span></div><div class="row"><b>用法</b>：对照资产卡片、总账和变动记录，核对原值、启用日期、折旧年限、残值率、当期折旧与处置，列示差异和待补证据。</div><div class="row"><b>场景</b>：月末折旧检查、年度盘点、资产处置核对。折旧政策由企业确认，工具只按给定政策复算。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>存货盘点与呆滞风险检查</h3><span class="skill-id">inventory-count-review</span></div><div class="row"><b>用法</b>：比对盘点表、库存台账和收发存记录，按物料列出盘盈盘亏、长期无周转、负库存和成本异常，并标记需要现场或估值证据的项目。</div><div class="row"><b>场景</b>：月/年末存货盘点复核、呆滞库存排查。减值判断须结合可变现净值证据及企业会计政策。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>审计资料准备与证据索引</h3><span class="skill-id">audit-evidence-index</span></div><div class="row"><b>用法</b>：按审计事项、期间、账户和样本整理文件目录，关联证据路径与底稿索引，标注缺失材料、版本冲突和待询问事项；不替代审计判断。</div><div class="row"><b>场景</b>：年审/专项审计资料准备、资料室缺口追踪。只整理本地授权文件，不上传外部服务。</div><button class="copy-btn">复制</button></div>
     </section>
 
     <!-- ===== 3 税务合规 ===== -->
@@ -446,15 +462,19 @@
     </section>
 
     <section class="module" id="g7">
-      <div class="module-head"><span class="num">分类 7 · 2 个</span><h2>汇报 · PPT</h2><p class="lead">将本地财务数据整理成管理层报告、执行摘要和可编辑演示文稿。</p></div>
+      <div class="module-head"><span class="num">分类 7 · 4 个</span><h2>汇报 · PPT</h2><p class="lead">将本地财务数据整理成管理层报告、会议行动项、制度流程和可编辑演示文稿。</p></div>
 
       <div class="card"><div class="card-head"><h3>财务报告生成</h3><span class="skill-id">financial-report-generation</span></div><div class="row"><b>用法</b>：提供试算平衡表、总账或分类交易数据，生成利润表、资产负债表、现金流量摘要、关键比率和管理层摘要。原版含 US GAAP / IFRS 示例，中国准则及企业口径需明确补充并复核。</div><div class="row"><b>场景</b>：月度经营汇报、财务摘要、报表初稿。用脱敏本地文件，无需付费数据接口。</div><button class="copy-btn">复制</button></div>
 
       <div class="card"><div class="card-head"><h3>财务汇报 PPT 制作</h3><span class="skill-id">presentation-skill</span></div><div class="row"><b>用法</b>：给出汇报对象、目的、财务数据和结论，生成结构化大纲、可编辑 PPTX，并检查版式与内容。需要本地脚本运行环境；先让 Agent 核对依赖和平台兼容性。</div><div class="row"><b>场景</b>：月度经营分析、预算复盘、董事会或项目汇报。数据由你提供，不依赖付费数据平台。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财务制度与流程助手</h3><span class="skill-id">finance-policy-sop</span></div><div class="row"><b>用法</b>：根据企业现行制度、表单和岗位分工，整理流程步骤、责任人、审批节点、所需凭证和例外处理，生成 SOP 或检查清单并标出冲突/缺失条款。</div><div class="row"><b>场景</b>：报销、采购付款、借款、费用报销和月结流程梳理。制度草案需由企业管理者审批后发布。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财务会议纪要与行动项</h3><span class="skill-id">finance-meeting-actions</span></div><div class="row"><b>用法</b>：根据授权提供的会议记录或转写稿，区分事实、讨论意见和已确认决议，提取行动项、负责人、截止日期、依赖和未决问题。</div><div class="row"><b>场景</b>：预算会、月度经营会、审计沟通会和回款协调会。未明确的责任人、承诺或决议标记待确认，不自行补写。</div><button class="copy-btn">复制</button></div>
     </section>
 
     <div class="footer">
-      财务人 SKILL 速查手册 · 7 大场景 · 49 个技能 · 核对日期：2026-10-10<br>
+      财务人 SKILL 速查手册 · 7 大场景 · 59 个技能 · 核对日期：2026-10-10<br>
       示例数据均为虚构内容；技能来源、版本与服务条款可能变化，请以原项目和宿主平台说明为准。
     </div>
 
@@ -515,6 +535,16 @@
       'finance-assistant': '请用一个小企业例子解释利润表、资产负债表和现金流量表的勾稽关系，并给我三道练习题。',
       'financial-report-generation': '请根据我提供的本月试算平衡表和上月对比数据，整理管理层财务摘要，包含收入、毛利、费用、现金流变化、关键比率、异常事项和待确认问题。先列明会计口径和数据缺口，不要自行假设中国准则处理。',
       'presentation-skill': '请根据我提供的月度经营分析数据，制作一份面向公司管理层的 8 页可编辑 PPTX，主题是本月经营表现与下月行动计划。先给出故事线和逐页结论，再生成演示文稿；所有数字注明口径，缺少依据的内容标为待确认。',
+      'accounts-receivable-aging': '请根据我提供的应收明细、开票记录和回款流水，按客户核销回款并编制账龄分析。列出期末余额、账龄区间、逾期天数、争议事项和建议跟进优先级；无法匹配的记录保留双方来源行号，不推断坏账结论。',
+      'accounts-payable-schedule': '请根据供应商应付明细、合同账期、发票和付款记录，生成未来四周付款排程。标记已逾期、即将到期、重复付款疑点和缺少审批/凭证的项目，仅输出建议清单，不执行付款。',
+      'cash-flow-forecast': '请使用我提供的期初银行余额、未来 13 周预计回款、付款计划、工资税费和其他收支，制作逐周现金预测。列明每条假设和来源，提供基准及回款延迟压力情景，标出最低现金余额和缺口日期。',
+      'budget-variance-analysis': '请对比本月各部门预算、实际和上年同期，统一科目与期间后计算差异金额和比例，按重要性排序。将原因区分为数据可证、需业务部门确认和分析假设，并列待跟进问题。',
+      'cost-margin-analysis': '请按现行成本核算口径分析各产品本季度收入、直接成本、分摊成本和毛利率，对比上季度变化并定位主要驱动。说明分摊规则和数据缺口，不擅自调整成本归集方法。',
+      'fixed-asset-register': '请核对固定资产卡片、总账期初期末余额和本月新增/处置记录，按企业提供的折旧年限、残值率和起算规则复算折旧，列出差异、缺失资料及可能重复/停提项目。',
+      'inventory-count-review': '请比对仓库盘点表、库存台账和本期收发记录，输出盘盈盘亏、负库存、长期无周转和成本异常清单，保留物料及来源行号，并区分事实差异与需要现场核实或减值评估的事项。',
+      'audit-evidence-index': '请按审计请求清单整理这个本地资料文件夹，生成事项、期间、样本、文件路径、版本、状态和缺口索引。不要改动或外传原文件；重复版本和缺少签批的证据标记待确认。',
+      'finance-policy-sop': '请根据我提供的差旅报销制度和审批表，整理报销流程 SOP，包含角色、步骤、时限、附件凭证、审批节点和例外情况，并列出制度与表单不一致或待管理层确认的内容。',
+      'finance-meeting-actions': '请根据这份月度经营会转写稿整理会议纪要，分别列事实数据、讨论意见、已确认决议、行动项（负责人/截止时间/依赖）和未决问题。没有明确说出的责任人或承诺标为待确认。',
       'bookkeeping-setup': '请根据我提供的企业基本信息、会计期间、科目表和内部审批规则，整理一份记账背景资料。把缺失信息标为待补，不要代替我决定会计政策。',
       'bank-reconciliation': '请对比我上传的银行流水和账簿明细，先确认字段映射，再列出已匹配、未达、重复和金额日期不一致记录，并保留双方来源行号。',
       'monthly-close': '请根据我提供的月结制度和本月资料，生成结账任务清单，列出责任人、截止时间、前置依赖、完成状态和待补证据。不要执行过账或申报。',
@@ -526,7 +556,17 @@
       'monthly-close': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/monthly-close',
       'fcs-reconcile': 'https://github.com/cxtx/finance-copilot-skills/tree/main/skills/fcs-reconcile',
       'financial-report-generation': 'https://github.com/seb1n/awesome-ai-agent-skills/tree/main/finance-and-accounting/financial-report-generation',
-      'presentation-skill': 'https://github.com/siril9/presentation-skill/tree/main/plugins/presentation-skill/skills/presentation-skill'
+      'presentation-skill': 'https://github.com/siril9/presentation-skill/tree/main/plugins/presentation-skill/skills/presentation-skill',
+      'accounts-receivable-aging': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/accounts-receivable-aging',
+      'accounts-payable-schedule': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/accounts-payable-schedule',
+      'cash-flow-forecast': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/cash-flow-forecast',
+      'budget-variance-analysis': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/budget-variance-analysis',
+      'cost-margin-analysis': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/cost-margin-analysis',
+      'fixed-asset-register': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/fixed-asset-register',
+      'inventory-count-review': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/inventory-count-review',
+      'audit-evidence-index': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/audit-evidence-index',
+      'finance-policy-sop': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/finance-policy-sop',
+      'finance-meeting-actions': 'https://github.com/PPAAA2025/Financial-Skills-Quick-Reference-Guide/tree/main/skills/finance-meeting-actions'
     };
     function installRequest(name, skillId) {
       var platform = installPlatform.value;
