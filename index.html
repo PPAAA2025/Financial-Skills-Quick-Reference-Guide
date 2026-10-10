@@ -574,12 +574,15 @@
     };
     function installRequest(name, skillId) {
       var platform = installPlatform.value;
-      var source = curatedSources[skillId] ? '已知上游目录：' + curatedSources[skillId] + '。' : '请先搜索并提供可信上游仓库或官方来源，未找到可核验的 SKILL.md 时不要安装。';
-      var shared = source + '核对 SKILL.md、许可证、维护来源、所需工具/连接器、脚本权限、数据外发和依赖费用。只选择无需购买订阅、API Key 或付费数据接口的用法；来源或费用不清楚时暂停并说明。不得购买服务、提交密钥或擅自启用外部连接器。';
+      var source = curatedSources[skillId];
       if (platform === 'workbuddy') {
-        return '请为 WorkBuddy 准备财务技能「' + name + '」（' + skillId + '）。' + shared + '若该技能是通用 Agent Skill 且依赖可满足，请按 WorkBuddy 可导入格式准备 ZIP，压缩包内包含技能目录和 SKILL.md，并告诉我文件保存位置、依赖及兼容性限制。不要声称已完成 WorkBuddy 导入；完成检查后指导我进入「专家 · 技能 · 连接器 → 技能」上传技能包。';
+        var workbuddySource = source ? '来源：' + source + '。' : '请查找公开、可核验的上游 SKILL.md。';
+        return '为 WorkBuddy 准备「' + name + '」（' + skillId + '）。' + workbuddySource + '确认许可、兼容性及无需付费 API/订阅后，打包含 SKILL.md 的 ZIP，告诉我保存位置和导入路径；不符合则说明原因。';
       }
-      return '请为 Codex 安装财务技能「' + name + '」（' + skillId + '）。' + shared + '确认兼容后，将技能安装到 Codex 可发现的 skills 目录，并告诉我调用方式；若需要用户在界面确认，请停在确认步骤。';
+      if (source) {
+        return '用 $skill-installer 将「' + name + '」安装到 Codex：' + source + '。确认许可和依赖无需付费；否则停止并说明。完成后告诉我调用方式。';
+      }
+      return '为「' + name + '」（' + skillId + '）查找公开、可核验的上游 SKILL.md，并用 $skill-installer 安装到 Codex。仅安装无需付费 API/订阅且许可清楚的版本；否则给我来源和原因。完成后告诉我调用方式。';
     }
     function updateInstallPlatform() {
       var workbuddy = installPlatform.value === 'workbuddy';
