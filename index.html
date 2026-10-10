@@ -251,7 +251,7 @@
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="brand">财务人SKILL速查手册<small>47 个财务技能 · 分类速查</small></div>
+    <div class="brand">财务人SKILL速查手册<small>49 个财务技能 · 分类速查</small></div>
     <nav id="nav">
       <a href="#quickStart">快速上手</a>
       <a href="#pinnedArea">我的置顶</a>
@@ -261,6 +261,7 @@
       <a class="group-label" href="#g4">金融数据查询</a>
       <a class="group-label" href="#g5">投研 · 估值</a>
       <a class="group-label" href="#g6">基金 · 量化 · 进阶</a>
+      <a class="group-label" href="#g7">汇报 · PPT</a>
     </nav>
   </aside>
 
@@ -268,7 +269,7 @@
 
     <div class="page-header">
       <h1>财务人 SKILL 速查手册</h1>
-      <p>47 个财务 AI 技能 · 6 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
+      <p>49 个财务 AI 技能 · 7 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
       <aside class="creator-profile" aria-label="抖音账号">
         <img src="assets/douyin-avatar.png" alt="抖音头像：闭眼微笑的猫咪">
         <div class="creator-copy">
@@ -310,7 +311,7 @@
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="搜索技能，如：发票、税务、估值、审计……">
-      <span class="hint" id="searchCount">47 个技能</span>
+      <span class="hint" id="searchCount">49 个技能</span>
     </div>
 
     <div class="no-result" id="noResult">没有匹配的技能，换个关键词试试。</div>
@@ -444,8 +445,16 @@
       <div class="card"><div class="card-head"><h3>金融学习助手</h3><span class="skill-id">finance-assistant</span></div><div class="row"><b>用法</b>：问会计三表/货币时间价值/估值/宏观等概念，通俗讲解+学习路径。</div><div class="row"><b>场景</b>：补财务金融基础、体系化学习。</div><button class="copy-btn">复制</button></div>
     </section>
 
+    <section class="module" id="g7">
+      <div class="module-head"><span class="num">分类 7 · 2 个</span><h2>汇报 · PPT</h2><p class="lead">将本地财务数据整理成管理层报告、执行摘要和可编辑演示文稿。</p></div>
+
+      <div class="card"><div class="card-head"><h3>财务报告生成</h3><span class="skill-id">financial-report-generation</span></div><div class="row"><b>用法</b>：提供试算平衡表、总账或分类交易数据，生成利润表、资产负债表、现金流量摘要、关键比率和管理层摘要。原版含 US GAAP / IFRS 示例，中国准则及企业口径需明确补充并复核。</div><div class="row"><b>场景</b>：月度经营汇报、财务摘要、报表初稿。用脱敏本地文件，无需付费数据接口。</div><button class="copy-btn">复制</button></div>
+
+      <div class="card"><div class="card-head"><h3>财务汇报 PPT 制作</h3><span class="skill-id">presentation-skill</span></div><div class="row"><b>用法</b>：给出汇报对象、目的、财务数据和结论，生成结构化大纲、可编辑 PPTX，并检查版式与内容。需要本地脚本运行环境；先让 Agent 核对依赖和平台兼容性。</div><div class="row"><b>场景</b>：月度经营分析、预算复盘、董事会或项目汇报。数据由你提供，不依赖付费数据平台。</div><button class="copy-btn">复制</button></div>
+    </section>
+
     <div class="footer">
-      财务人 SKILL 速查手册 · 6 大场景 · 47 个技能 · 核对日期：2026-10-09<br>
+      财务人 SKILL 速查手册 · 7 大场景 · 49 个技能 · 核对日期：2026-10-10<br>
       示例数据均为虚构内容；技能来源、版本与服务条款可能变化，请以原项目和宿主平台说明为准。
     </div>
 
@@ -504,6 +513,8 @@
       'jf-lingxi-quant-multifactor-pro': '请用质量、成长、现金流、估值和动量因子筛选候选股票，展示因子定义、权重和回测区间。',
       'market-trend-assessment': '请基于最近一个交易日的指数和成交数据，分别按短线情绪、周线阶段和行为金融框架描述市场状态。',
       'finance-assistant': '请用一个小企业例子解释利润表、资产负债表和现金流量表的勾稽关系，并给我三道练习题。',
+      'financial-report-generation': '请根据我提供的本月试算平衡表和上月对比数据，整理管理层财务摘要，包含收入、毛利、费用、现金流变化、关键比率、异常事项和待确认问题。先列明会计口径和数据缺口，不要自行假设中国准则处理。',
+      'presentation-skill': '请根据我提供的月度经营分析数据，制作一份面向公司管理层的 8 页可编辑 PPTX，主题是本月经营表现与下月行动计划。先给出故事线和逐页结论，再生成演示文稿；所有数字注明口径，缺少依据的内容标为待确认。',
       'bookkeeping-setup': '请根据我提供的企业基本信息、会计期间、科目表和内部审批规则，整理一份记账背景资料。把缺失信息标为待补，不要代替我决定会计政策。',
       'bank-reconciliation': '请对比我上传的银行流水和账簿明细，先确认字段映射，再列出已匹配、未达、重复和金额日期不一致记录，并保留双方来源行号。',
       'monthly-close': '请根据我提供的月结制度和本月资料，生成结账任务清单，列出责任人、截止时间、前置依赖、完成状态和待补证据。不要执行过账或申报。',
@@ -513,7 +524,9 @@
       'bookkeeping-setup': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/bookkeeping-setup',
       'bank-reconciliation': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/bank-reconciliation',
       'monthly-close': 'https://github.com/Receiptor-AI/bookkeeping-skills/tree/main/skills/monthly-close',
-      'fcs-reconcile': 'https://github.com/cxtx/finance-copilot-skills/tree/main/skills/fcs-reconcile'
+      'fcs-reconcile': 'https://github.com/cxtx/finance-copilot-skills/tree/main/skills/fcs-reconcile',
+      'financial-report-generation': 'https://github.com/seb1n/awesome-ai-agent-skills/tree/main/finance-and-accounting/financial-report-generation',
+      'presentation-skill': 'https://github.com/siril9/presentation-skill/tree/main/plugins/presentation-skill/skills/presentation-skill'
     };
     function installRequest(name, skillId) {
       var platform = installPlatform.value;
