@@ -63,6 +63,8 @@
     transform: rotate(-7deg);
   }
   .brand small { display: block; font-size: 13px; color: var(--text-sub); font-weight: 500; margin-top: 5px; }
+  .reset-btn { display: block; width: 100%; margin: 0 0 12px; padding: 8px 10px; border: 1px solid var(--border); background: var(--card); color: var(--text-sub); border-radius: 6px; font-size: 12px; cursor: pointer; transition: .18s ease; }
+  .reset-btn:hover { color: var(--primary-dark); border-color: var(--primary); background: var(--primary-soft); }
   .sidebar nav a {
     display: block;
     padding: 8px 12px;
@@ -210,12 +212,11 @@
   .pinned-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
   .pinned-head h2 { font-size: 18px; color: var(--primary-dark); }
   .pinned-head p, .pinned-empty { color: var(--text-sub); font-size: 12px; }
-  .pinned-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .pinned-list .card { margin: 0; }
-  .pinned-list .card { grid-template-columns: 1fr; }
+  .pinned-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pinned-list .card { margin: 0 0 10px; }
   .pinned-list .card-head h3 { padding-right: 0; }
   .pinned-empty { grid-column: 1 / -1; padding: 14px 16px; border: 1px dashed var(--border); background: rgba(255,253,251,.75); }
-  .pinned-actions { display: flex; gap: 8px; margin-top: 8px; }
+  .pinned-actions { display: inline-flex; gap: 8px; margin: 0; }
   :focus-visible { outline: 3px solid rgba(128, 107, 152, .4); outline-offset: 3px; }
 
   .footer { text-align: center; color: var(--text-sub); font-size: 12px; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--border); }
@@ -228,7 +229,6 @@
     .brand::before { top: 6px; left: 8px; height: 30px; }
     .main { margin-left: 0; padding: 22px 16px 60px; }
     .install-guide { align-items: flex-start; }
-    .pinned-list { grid-template-columns: 1fr; }
     .pinned-head { display: block; }
     .quick-steps li { grid-template-columns: minmax(104px, 120px) minmax(0, 1fr); gap: 8px; padding: 9px 10px; }
   }
@@ -257,6 +257,7 @@
     <nav id="nav">
       <a href="#quickStart">快速上手</a>
       <a href="#pinnedArea">我的置顶</a>
+      <button class="reset-btn" id="resetBtn" type="button">恢复默认设置</button>
       <a class="group-label" href="#g1">账务 · 票据 · 报销</a>
       <a class="group-label" href="#g2">会计 · 报表 · 审计</a>
       <a class="group-label" href="#g3">税务 · 合规</a>
@@ -697,7 +698,6 @@
         if (tools) tools.remove();
         var clonedCheckbox = clone.querySelector('.verify-checkbox');
         if (clonedCheckbox) clonedCheckbox.checked = !!verifyState[clone.querySelector('.skill-id').textContent.trim()];
-        var title = clone.querySelector('h3');
         var actions = document.createElement('div');
         actions.className = 'pinned-actions';
         var jump = document.createElement('button');
@@ -719,7 +719,8 @@
         });
         actions.appendChild(jump);
         actions.appendChild(unpin);
-        title.insertAdjacentElement('afterend', actions);
+        var cardActions = clone.querySelector('.card-actions');
+        if (cardActions) cardActions.appendChild(actions);
         clone.addEventListener('dragstart', function (event) {
           event.dataTransfer.effectAllowed = 'move';
           event.dataTransfer.setData('text/plain', id);
@@ -744,6 +745,12 @@
 
     renderPinned();
     updatePinButtons();
+
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      if (!confirm('确定恢复默认设置吗？这会清除本浏览器保存的置顶和“已验证”标记。')) return;
+      [pinKey, verifyKey].forEach(function (key) { localStorage.removeItem(key); });
+      location.reload();
+    });
 
     document.addEventListener('change', function (event) {
       if (!event.target.matches('.verify-checkbox')) return;
