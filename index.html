@@ -90,6 +90,8 @@
   .page-header::after { content: "43"; display: none; position: absolute; right: 26px; top: -10px; font-size: 116px; line-height: 1; font-weight: 900; color: rgba(21, 154, 117, .08); letter-spacing: -8px; pointer-events: none; }
   .page-header h1 { position: relative; z-index: 1; width: calc(100% - 330px); font-family: Georgia, "Songti SC", serif; font-size: clamp(26px, 3vw, 36px); font-weight: 700; letter-spacing: -.7px; color: var(--primary-dark); }
   .page-header p { position: relative; z-index: 1; width: calc(100% - 330px); max-width: 680px; color: var(--text-sub); margin-top: 8px; font-size: 14px; }
+  .template-download { position: relative; z-index: 1; display: inline-block; margin-top: 12px; padding: 7px 11px; border: 1px solid var(--border); border-radius: 6px; background: var(--primary-soft); color: var(--primary-dark); font-size: 12px; font-weight: 700; text-decoration: none; }
+  .template-download:hover { background: #e6dced; }
   .creator-profile { position: absolute; z-index: 2; top: 18px; right: 20px; width: 310px; display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 11px; padding: 11px 12px; border: 1px solid var(--border); border-radius: 9px; background: rgba(255, 253, 251, .97); }
   .creator-profile img { display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
   .creator-copy { min-width: 0; }
@@ -270,6 +272,7 @@
     <div class="page-header">
       <h1>财务人 SKILL 速查手册</h1>
       <p>59 个财务 AI 技能 · 7 大场景分类 · 每项含适用场景、用法和提问样例。新增本地工作流无需付费数据接口；模型与宿主平台费用仍按对应服务规则。</p>
+      <a class="template-download" href="finance-skill-manual-v1.1-template.zip" download>下载可编辑 ZIP 模板</a>
       <aside class="creator-profile" aria-label="抖音账号">
         <img src="assets/douyin-avatar.png" alt="抖音头像：闭眼微笑的猫咪">
         <div class="creator-copy">

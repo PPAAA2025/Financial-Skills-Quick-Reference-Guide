@@ -8,6 +8,8 @@
 
 GitHub Pages: https://ppaaa2025.github.io/Financial-Skills-Quick-Reference-Guide/
 
+可编辑模板 ZIP：[下载 finance-skill-manual-v1.1-template.zip](finance-skill-manual-v1.1-template.zip)（解压后按 `CUSTOMIZE.md` 修改）。
+
 ## 本地预览
 
 直接使用浏览器打开 `index.html`。
